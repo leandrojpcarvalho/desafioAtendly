@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx src/server.ts",
+    "dev": "tsx watch src/server.ts --watch",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "predb:all": "rm -rf dist && tsc",
@@ -31,6 +31,7 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.2",
     "@types/sequelize": "^4.28.20",
+    "http-status-codes": "^2.3.0",
     "sequelize-cli": "^6.6.2",
     "tsx": "^4.19.2"
   }
