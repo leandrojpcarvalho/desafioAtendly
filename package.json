@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install:all": "npm install --prefix frontend && npm install --prefix backend",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "coverage": "tsc && nyc mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -17,5 +18,21 @@
   "bugs": {
     "url": "https://github.com/leandrojpcarvalho/desafioAtendly/issues"
   },
-  "homepage": "https://github.com/leandrojpcarvalho/desafioAtendly#readme"
+  "homepage": "https://github.com/leandrojpcarvalho/desafioAtendly#readme",
+  "devDependencies": {
+    "@types/chai": "^5.0.1",
+    "@types/chai-http": "^3.0.5",
+    "@types/mocha": "^10.0.10",
+    "@types/sinon": "^17.0.3",
+    "chai": "^5.1.2",
+    "chai-http": "^5.1.1",
+    "mocha": "^11.0.1",
+    "nyc": "^17.1.0",
+    "sinon": "^19.0.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2"
+  }
 }

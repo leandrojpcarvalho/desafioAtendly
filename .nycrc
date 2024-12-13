@@ -1,0 +1,29 @@
+{
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "include": [
+        "backend/**/*.ts",
+        "shared/entities/**/*.ts",
+        "shared/utils/**/*.ts"
+    ],
+    "exclude": [
+        "backend/db/migrations/**/*.ts",
+        "backend/db/seeders/**/*.ts",
+        "backend/db/config/**/*.ts",
+        "backend/db/configSequelize.ts",
+        "backend/server.ts",
+        "backend/**/*.interface.ts",
+        "frontend/**/*.ts"
+    ],
+    "reporter": [
+        "text",
+        "html",
+        "lcov"
+    ],
+    "recursive": true,
+    "check-coverage": true,
+    "statements": 90,
+    "branches": 90,
+    "functions": 90,
+    "lines": 90
+}

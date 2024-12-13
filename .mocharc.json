@@ -1,0 +1,10 @@
+{
+    "node-option": [
+        "import=tsx"
+    ],
+    "watch-extensions": [
+        "ts"
+    ],
+    "recursive": true,
+    "spec": "./__tests__/**/*.ts"
+}
