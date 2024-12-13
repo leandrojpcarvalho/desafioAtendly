@@ -1,4 +1,5 @@
 import express from "express";
+import userRouter from "./user.route";
 
 const defaultRouter = express.Router();
 
@@ -8,6 +9,7 @@ defaultRouter.get("/", (req, res) => {
 
 const routes = {
   defaultRouter,
+  userRouter,
 };
 
 export default routes;
