@@ -1,0 +1,21 @@
+{
+  "name": "desafioatendly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "npm install --prefix frontend && npm install --prefix backend",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leandrojpcarvalho/desafioAtendly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leandrojpcarvalho/desafioAtendly/issues"
+  },
+  "homepage": "https://github.com/leandrojpcarvalho/desafioAtendly#readme"
+}
