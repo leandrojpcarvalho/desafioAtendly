@@ -1,10 +1,8 @@
-import { SqliteDialect } from "@sequelize/sqlite3";
-import type { Options } from "@sequelize/core";
+import type { Options } from "sequelize";
 
-const config: Options<SqliteDialect> = {
-  dialect: SqliteDialect,
-  storage: ":memory:",
-  pool: { max: 1, idle: Infinity, maxUses: Infinity },
+const config: Options = {
+  dialect: "sqlite",
+  host: "./db.sqlite",
 };
 
 export default config;

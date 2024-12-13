@@ -7,3 +7,5 @@ const expressServer = express();
 const server = new App(expressServer, routes);
 
 server.start(3000);
+
+export default server;

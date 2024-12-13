@@ -1,4 +1,4 @@
-import { Sequelize } from "@sequelize/core";
+import { Sequelize } from "sequelize";
 import config from "./config/db";
 
 const sequelize = new Sequelize(config);
