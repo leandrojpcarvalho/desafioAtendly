@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import { MapRoutes } from "./utils/types";
 import ErrorHandler from "./layers/middleware/ErrorHandler";
+import cors from "cors";
 
 export default class AppBack {
   private server: Express;
@@ -15,10 +16,14 @@ export default class AppBack {
   private config(): void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Methods", "GET,POST");
+      res.header(
+        "Access-Control-Allow-Methods",
+        "GET,POST,DELETE,OPTIONS,PUT,PATCH"
+      );
       res.header("Access-Control-Allow-Headers", "*");
       next();
     };
+    this.server.use(cors());
     this.server.use(express.json());
     this.server.use(accessControl);
   }

@@ -6,9 +6,9 @@ import { ServiceHelpers } from "../../utils";
 export default class MiddleWare {
   public static schemas = Schemas;
 
-  public static validationMiddleware(route: keyof typeof Schemas) {
+  public static validationMiddleware(route: keyof typeof Schemas, type: keyof typeof Schemas['user']) {
     return (req: Request, res: Response, next: NextFunction) => {
-      const { error } = this.schemas[route].userSchema.validate(req.body);
+      const { error } = MiddleWare.schemas[route][type].validate(req.body);
       if (error) {
         res.status(400).json({ message: error.details[0].message });
         return;
