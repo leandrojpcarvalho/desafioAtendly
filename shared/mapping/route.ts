@@ -1,7 +1,7 @@
 import { Keys } from "../utils/types.type";
 
-const ADDRESS = process.env.ADDRESS || "http://localhost";
-const PORT = process.env.PORT || 3000;
+const ADDRESS = "http://localhost";
+const PORT = 3000;
 
 export enum ERoutes {
   login = "/login",
@@ -18,13 +18,13 @@ export abstract class Routes {
   ): string {
     switch (type) {
       case "fetch":
-        return this.routeMaker(route);
+        return Routes.routeMaker(route);
       default:
         return ERoutes[route];
     }
   }
   private static routeMaker(route: RoutesType): string {
-    return `${ADDRESS}:${PORT}${ERoutes[route]}`;
+    return `${ADDRESS}:${PORT}/api${ERoutes[route]}`;
   }
 }
 
