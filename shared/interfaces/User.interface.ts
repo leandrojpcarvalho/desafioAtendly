@@ -8,4 +8,5 @@ export interface IUserModel {
 }
 
 export type UserCreation = Creation<IUserModel>;
+export type UserLogin = Pick<IUserModel, "email" | "password">;
 export type UserResponse = Omit<IUserModel, "password">;
