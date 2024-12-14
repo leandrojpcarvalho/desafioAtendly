@@ -3,12 +3,9 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <div>
-      <h1>Atendly</h1>
-    </div>
-  </header>
-  <RouterView />
+  <div class="container text-center d-flex flex-column align-items-center vh-100 justify-content-center">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>

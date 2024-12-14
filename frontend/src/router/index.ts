@@ -1,13 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../views/Login.view.vue'
+import MainView from '../views/Main.view.vue'
+import RegisterForm from '../components/RegisterForm.vue'
+import LoginForm from '../components/LoginForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: LoginView,
+      name: 'Main',
+      component: MainView,
+      children: [
+        {
+          path: '/register',
+          name: 'Register',
+          component: RegisterForm,
+        },
+        {
+          path: '/',
+          name: 'Login',
+          component: LoginForm,
+        },
+      ],
     },
   ],
 })

@@ -1,0 +1,57 @@
+<script lang="ts">
+import { defineComponent, InputHTMLAttributes } from 'vue'
+import store from '../store';
+
+
+export default defineComponent({
+  setup() {
+    const { isLogged, isValidField } = store.state.frontHandler
+
+    return {
+      isLogged,
+      isValidField,
+    }
+  },
+  name: 'LoginForm',
+  methods: {
+    async onClick() {
+      const { dispatch } = store;
+      await dispatch('validateLogin')
+      await dispatch('fetchLogin');
+    },
+    onChange(e: InputHTMLAttributes) {
+      const { commit } = store;
+      const { id: field, value } = e.target;
+      commit('setFields', { field, value });
+    },
+  },
+})
+</script>
+
+<template>
+  <main class="form-signin container d-flex flex-column align-items-center mt-5">
+    <form class="needs-validation p-5 shadow-sm">
+      <h1 class="h3- mb-3 fw-normal">Login</h1>
+      <hr class="my-4">
+      <div class="col-sm-6 w-100">
+        <label for="email">Email</label>
+        <input class="form-control" type="email" id="email" @change="onChange" required placeholder="seu@email.com"
+          :class="{ 'is-valid': isValidField.email, 'is-invalid': isValidField.email !== undefined ? !isValidField.email : false }" />
+        <div class="invalid-feedback">Email invalido</div>
+      </div>
+      <div class="col-sm-6 w-100">
+        <label for="password">Password</label>
+        <input class="form-control" type="password" id="password" @change="onChange" required
+          :class="{ 'is-valid': isValidField.password, 'is-invalid': isValidField.password !== undefined ? !isValidField.password : false }" />
+        <div class="invalid-feedback">Senha invalida, precisa ter no minimo 6 caracteres
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="d-flex gap-3">
+        <RouterLink to="/register" class=" center btn btn-lg bg-secondary text-white btn-lg">Cadastro</RouterLink>
+        <button type='button' @click="onClick"
+          class="w-100  flex-grow-1 center btn btn-lg btn-primary btn-lg">Entrar</button>
+      </div>
+    </form>
+  </main>
+</template>

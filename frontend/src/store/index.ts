@@ -9,9 +9,9 @@ const { isEmail, isPassword } = Validations.Validations
 interface AppStore extends UserCreation {
   frontHandler: {
     isValidField: {
-      name: boolean
-      email: boolean
-      password: boolean
+      name: boolean | undefined
+      email: boolean | undefined
+      password: boolean | undefined
     }
     isLogged: boolean
   }
@@ -24,9 +24,9 @@ const store = createStore<AppStore>({
     password: '',
     frontHandler: {
       isValidField: {
-        name: true,
-        email: true,
-        password: true,
+        name: undefined,
+        email: undefined,
+        password: undefined,
       },
       isLogged: false,
     },
