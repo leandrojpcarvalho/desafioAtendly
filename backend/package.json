@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/server.ts --watch",
+    "dev": "tsx watch src/server.ts",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "predb:all": "rm -rf dist && tsc",
@@ -16,6 +16,7 @@
   "dependencies": {
     "@sequelize/sqlite3": "^7.0.0-alpha.43",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "joi": "^17.13.3",

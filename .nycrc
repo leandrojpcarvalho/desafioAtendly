@@ -3,8 +3,7 @@
     "all": true,
     "include": [
         "backend/**/*.ts",
-        "shared/entities/**/*.ts",
-        "shared/utils/**/*.ts"
+        "shared/**/*.ts"
     ],
     "exclude": [
         "backend/db/migrations/**/*.ts",
