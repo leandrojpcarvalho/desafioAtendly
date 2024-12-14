@@ -2,15 +2,17 @@ import { createStore } from 'vuex'
 import { UserCreation } from '../../../shared/interfaces/User.interface'
 import Validations from '../../../shared/utils/validations'
 import Mapping from '../../../shared/mapping/route'
-
-const { isEmail, isName, isPassword } = Validations
-const {
-  Routes: { getRoute },
-} = Mapping
+import axios from 'axios'
+const { getRoute } = Mapping.Routes
+const { isEmail, isPassword } = Validations.Validations
 
 interface AppStore extends UserCreation {
   frontHandler: {
-    error: string[]
+    isValidField: {
+      name: boolean
+      email: boolean
+      password: boolean
+    }
     isLogged: boolean
   }
 }
@@ -21,51 +23,53 @@ const store = createStore<AppStore>({
     email: '',
     password: '',
     frontHandler: {
-      error: [],
+      isValidField: {
+        name: true,
+        email: true,
+        password: true,
+      },
       isLogged: false,
     },
   },
   mutations: {
-    setName(state, string) {
-      state.name = string
+    setFields(state, { field, value }) {
+      state[field] = value
     },
-    setEmail(state, string) {
-      state.email = string
-    },
-    setPassword(state, string) {
-      state.password = string
-    },
-    setLogged(state, boolean) {
+    setIsLogged(state, boolean) {
       state.frontHandler.isLogged = boolean
     },
-    validateState(state) {
-      const { error } = state.frontHandler
-      if (!isEmail(state.email)) {
-        error.push('email')
-      } else if (!isName(state.name)) {
-        error.push('name')
-      } else if (!isPassword(state.password)) {
-        error.push('password')
-      } else {
-        state.frontHandler.error = []
-      }
+    setValid(state, { field, value }) {
+      state.frontHandler.isValidField[field] = value
     },
   },
+
   actions: {
-    async login({ commit, dispatch, state }) {
-      commit('validateState')
-      if (state.frontHandler.error.length === 0) {
-        dispatch('fetchLogin')
+    validateLogin({ state, commit }) {
+      if (!isEmail(state.email)) {
+        commit('setValid', { field: 'email', value: false })
       } else {
-        commit('setIsLogged', false)
+        commit('setValid', { field: 'email', value: true })
+      }
+      if (!isPassword(state.password)) {
+        commit('setValid', { field: 'password', value: false })
+      } else {
+        commit('setValid', { field: 'password', value: true })
       }
     },
     async fetchLogin({ commit, state }) {
-      const { frontHandler, ...rest } = state
-      const data = await axios.post(getRoute('login', 'fetch'), { rest })
-      const { status } = await data.json()
-      if (status === 200) {
-        commit('setIsLogged', true)
+      const {
+        email,
+        password,
+        frontHandler: { isValidField },
+      } = state
+      if (isValidField.email && isValidField.password) {
+        const { status } = await axios.post(getRoute('login', 'fetch'), {
+          email,
+          password,
+        })
+        if (status === 200) {
+          commit('setIsLogged', true)
+        }
       }
     },
   },
