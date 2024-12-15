@@ -19,7 +19,9 @@ export default defineComponent({
     },
     onChange(e: InputHTMLAttributes) {
       const { commit } = store;
-      const { id: field, value } = e.target;
+      //procurar type correto
+      const element = e as unknown as { target: { id: string, value: string } }
+      const { id: field, value } = element.target
       commit('setFields', { field, value });
     }
   },
@@ -27,8 +29,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="form-signin container d-flex flex-column align-items-center mt-5">
-    <form class="needs-validation p-5 shadow-sm">
+  <main class="form-signin container d-flex flex-column align-items-center">
+    <form class="needs-validation width">
       <h1 class="h3- mb-3 fw-normal">Cadastro</h1>
       <hr class="my-4">
       <div class="col-sm-6 w-100">
@@ -54,7 +56,7 @@ export default defineComponent({
       <hr class="my-4">
       <div class="d-flex gap-3">
         <RouterLink to="/" class=" center btn btn-lg bg-secondary text-white btn-lg">Entrar</RouterLink>
-        <button type='button' @click="onClick"
+        <button type='submit' @click="onClick"
           class="w-100  flex-grow-1 center btn btn-lg btn-primary btn-lg">Cadastrar</button>
       </div>
     </form>

@@ -7,14 +7,14 @@ defineComponent({
 </script>
 
 <template>
-  <div class="d-flex gap-3 align-items-center">
+  <div class="d-flex gap-3 align-items-center min">
     <div class="">
       <h1 class="brand"><span class="styled">A</span>tendly</h1>
       <div class="cutter">
         <div class="cover"></div>
       </div>
     </div>
-    <section class="w-100">
+    <section class="shadow-sm p-3 glass">
       <RouterView />
     </section>
   </div>
@@ -24,6 +24,16 @@ defineComponent({
 </template>
 
 <style scoped>
+.glass {
+  /* From https://css.glass */
+  background: rgba(163, 163, 163, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.3px);
+  -webkit-backdrop-filter: blur(8.3px);
+  border: 1px solid rgba(163, 163, 163, 0.14);
+}
+
 .brand {
   font-size: 3rem;
   font-family: "Chalkduster, fantasy";
@@ -37,20 +47,30 @@ defineComponent({
 }
 
 .cover {
-  position: relative;
-  width: 700px;
-  height: 600px;
-  background-image: url('../assets/background-login.png');
+  width: 100%;
+  height: 100%;
+  background-image: url(/src/assets/background-login.png);
   background-size: cover;
 }
 
 .cutter {
-  opacity: 0.1;
-  top: calc(50% - 355px);
-  left: calc(50% - 550px);
+  opacity: 0.3;
+  top: calc(50% - 450px);
+  left: calc(50% - 125px);
   position: absolute;
-  width: 450px;
+  width: 860px;
+  height: 654px;
   overflow: hidden;
   z-index: -1;
+}
+
+@media screen and (max-width: 620px) {
+  .min {
+    flex-direction: column;
+  }
+
+  .cutter {
+    display: none;
+  }
 }
 </style>
