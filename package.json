@@ -7,6 +7,7 @@
     "install:all": "npm install --prefix frontend && npm install --prefix backend",
     "test": "mocha",
     "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
     "coverage": "tsc && nyc mocha --exit"
   },
   "repository": {
@@ -25,17 +26,30 @@
     "@types/chai": "4.3.20",
     "@types/chai-as-promised": "^8.0.1",
     "@types/chai-http": "4.2.0",
+    "@types/express": "^5.0.0",
     "@types/mocha": "^10.0.10",
+    "@types/node": "^22.9.3",
     "@types/sinon": "^17.0.3",
-    "chai": "5.0.0",
+    "@types/sinon-chai": "^4.0.0",
+    "chai": "4.4.1",
     "chai-as-promised": "^7.1.1",
     "chai-http": "4.4.0",
-    "mocha": "^11.0.1",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.1.7",
     "nyc": "^17.1.0",
-    "sinon": "^19.0.2",
+    "sinon": "13.0.1",
+    "sinon-chai": "^3.7.0",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "tslint": "^5.20.1",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2",
-    "express": "^4.21.1"
+    "typescript": "^5.7.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "bootstrap-vue": "^2.23.1",
+    "vue": "^2.7.16"
+  }
 }
