@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import { MapRoutes } from "./utils/types";
 import ErrorHandler from "./layers/middleware/ErrorHandler";
 import cors from "cors";
+import routes from "./routes/index.route";
 
 export default class AppBack {
   private server: Express;
@@ -33,6 +34,10 @@ export default class AppBack {
       this.server.use(router);
     });
     this.server.use(ErrorHandler.errorHandler);
+  }
+
+  public static getInstance(exp = express(), router = routes): AppBack {
+    return new AppBack(exp, router);
   }
 
   public start(port: number) {

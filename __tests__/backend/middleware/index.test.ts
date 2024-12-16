@@ -70,7 +70,7 @@ describe("protectedMiddelware", async function () {
   });
 });
 
-describe.only("validationMidlleware", async function () {
+describe("validationMidlleware", async function () {
   it("deve retornar 400 se o body nao for valido", async function () {
     const req = {
       body: {
