@@ -22,41 +22,50 @@ export default class UserService
 
     const exists = await this.modelInstance.findOne({ email });
     if (exists) {
-      return createResponse("O email ja esta cadastrado", StatusCodes.CONFLICT);
+      return createResponse(
+        { message: "O email ja esta cadastrado" },
+        StatusCodes.CONFLICT
+      );
     }
 
     const newUser = { ...user, password: getHashedPassword(user.password) };
-    await this.modelInstance.create(newUser);
+    const data = await this.modelInstance.create(newUser);
 
-    return createResponse(true, StatusCodes.CREATED);
+    return createResponse(
+      { token: createToken(data.dataValues) },
+      StatusCodes.CREATED
+    );
   }
 
   async findOne({ email }: Partial<UserModelSequelize>) {
     const data = await this.modelInstance.findOne({ email });
     if (!data) {
-      return createResponse("Usuario nao encontrado", StatusCodes.NOT_FOUND);
+      return createResponse(
+        { message: "Usuario nao encontrado" },
+        StatusCodes.NOT_FOUND
+      );
     }
     const { password, ...rest } = data.dataValues;
-    return createResponse(rest, StatusCodes.OK);
+    return createResponse({ data: rest }, StatusCodes.OK);
   }
 
   async login(user: Partial<UserModelSequelize>) {
-    const hasUser = await this.modelInstance.findOne(user);
+    const hasUser = await this.modelInstance.findOne({ email: user.email });
     if (!hasUser || !user.password) {
       return createResponse(
-        "Email e/ou senha estao errados",
+        { message: "Email e/ou senha estao errados" },
         StatusCodes.UNAUTHORIZED
       );
     }
-    const { password, ...rest } = hasUser;
+    const { password, ...rest } = hasUser.dataValues;
 
     if (!bcryptValidation(password, user.password)) {
       return createResponse(
-        "Email e/ou senha estao errados",
+        { message: "Email e/ou senha estao errados" },
         StatusCodes.UNAUTHORIZED
       );
     }
-    return createResponse(createToken(rest), StatusCodes.OK);
+    return createResponse({ token: createToken(rest) }, StatusCodes.OK);
   }
 
   static getInstance(model = UserModel.getInstance()) {

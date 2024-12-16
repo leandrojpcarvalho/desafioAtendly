@@ -17,6 +17,16 @@ export abstract class ServiceHelpers {
     return { data, status };
   }
 
+  public static decodeToken(token: string) {
+    const [bearer, jwtToken] = token.split(" ");
+    if (bearer !== "Bearer") return null;
+    try {
+      return jwt.verify(jwtToken, JWT_SECRET);
+    } catch (error) {
+      return null;
+    }
+  }
+
   public static getHashedPassword(password: string) {
     return bcrypt.hashSync(password, HASH_SALT);
   }

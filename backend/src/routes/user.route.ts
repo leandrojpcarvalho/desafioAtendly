@@ -9,21 +9,28 @@ const {
 
 const controller = UserController.getInstance();
 const userRouter = Router();
-const { protectedMiddleware, validationMiddleware } = MiddleWare;
+const { protectedMiddleware, validationMiddleware, loginWithToken } =
+  MiddleWare;
 
 userRouter
   .get(
-    "/api".concat(getRoute("profile")),
+    getRoute("profile"),
     protectedMiddleware(),
     controller.getMethod("profile")
+  ).
+  post(
+    getRoute("email"),
+    validationMiddleware("user", "emailSchema"),
+    controller.getMethod('emailValidation')
   )
   .post(
-    "/api".concat(getRoute("login")),
+    getRoute("login"),
+    loginWithToken(),
     validationMiddleware("user", "loginSchema"),
     controller.getMethod("login")
   )
   .post(
-    "/api".concat(getRoute("register")),
+    getRoute("register"),
     validationMiddleware("user", "userSchema"),
     controller.getMethod("create")
   );
