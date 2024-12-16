@@ -46,8 +46,7 @@ UserModelSequelize.init(
     sequelize,
     modelName: "User",
     tableName: "users",
-    timestamps: true,
-    underscored: true,
+    timestamps: false,
   }
 );
 
