@@ -1,7 +1,8 @@
 import * as chai from "chai";
 import sinonChai from "sinon-chai";
-import e, { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import Sinon from "sinon";
+import ErrorHandler from "../../../backend/src/layers/middleware/ErrorHandler";
 import MiddleWare from "../../../backend/src/layers/middleware/index.middleware";
 import { ServiceHelpers } from "../../../backend/src/utils";
 
@@ -171,5 +172,74 @@ describe("validationMidlleware", async function () {
       next
     );
     expect(next).has.been.calledOnce;
+  });
+});
+
+describe("loginWithToken", async function () {
+  it("deve continuar para o login", async function () {
+    const req = {
+      header: Sinon.stub().returns(""),
+      headers: {},
+    } as unknown as Request;
+    const res = {
+      json: Sinon.stub().returnsThis(),
+      status: Sinon.stub().returnsThis(),
+    } as unknown as Response;
+
+    const next = Sinon.stub() as unknown as NextFunction;
+
+    await MiddleWare.loginWithToken()(req, res, next);
+    expect(next).has.been.calledOnce;
+  });
+  it("deve continuar para o login se token for invalido", async function () {
+    const req = {
+      header: Sinon.stub().returns("Bearer invalidToken"),
+      headers: {
+        authorization: "Bearer invalidToken",
+      },
+    } as unknown as Request;
+    const res = {
+      json: Sinon.stub().returnsThis(),
+      status: Sinon.stub().returnsThis(),
+    } as unknown as Response;
+
+    const next = Sinon.stub() as unknown as NextFunction;
+
+    await MiddleWare.loginWithToken()(req, res, next);
+
+    expect(next).has.been.calledOnce;
+  });
+  it("deve chamar a funcao next", async function () {
+    const token = ServiceHelpers.createToken({ id: 1 });
+    const decoded = ServiceHelpers.decodeToken(token);
+    const req = {
+      headers: {
+        authorization: token,
+      },
+    } as Request;
+    const res = {
+      json: Sinon.stub().returnsThis(),
+      status: Sinon.stub().returnsThis(),
+    } as unknown as Response;
+    const next = Sinon.stub() as unknown as NextFunction;
+    await MiddleWare.loginWithToken()(req, res, next);
+    expect(res.status).has.been.calledOnceWith(200);
+    expect(res.json).has.been.calledOnce;
+    expect(res.json).has.been.calledWith(decoded);
+  });
+});
+
+describe("ErrorHandling", function () {
+  it("deve retornar 500", async function () {
+    const error = new Error("error");
+    const req = {} as Request;
+    const res = {
+      json: Sinon.stub().returnsThis(),
+      status: Sinon.stub().returnsThis(),
+    } as unknown as Response;
+    const next = Sinon.stub() as unknown as NextFunction;
+    ErrorHandler.errorHandler(error, req, res, next);
+    expect(res.status).has.been.calledOnceWith(500);
+    expect(res.json).has.been.calledOnce;
   });
 });

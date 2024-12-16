@@ -1,6 +1,6 @@
 abstract class Validations {
   public static regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  public static regexName = /^[a-zA-Z ]+$/;
+  public static regexName = /^[a-zA-Z]{2,}(?: [a-zA-Z]{2,})*$/;
 
   static isEmail(email: string): boolean {
     return Validations.regexEmail.test(email);

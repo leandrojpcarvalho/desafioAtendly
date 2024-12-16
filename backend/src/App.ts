@@ -5,11 +5,11 @@ import cors from "cors";
 import routes from "./routes/index.route";
 
 export default class AppBack {
-  private server: Express;
+  public app: Express;
   private routes: MapRoutes;
 
   constructor(express: Express, routes: MapRoutes) {
-    this.server = express;
+    this.app = express;
     this.routes = routes;
     this.config();
   }
@@ -24,16 +24,16 @@ export default class AppBack {
       res.header("Access-Control-Allow-Headers", "*");
       next();
     };
-    this.server.use(cors());
-    this.server.use(express.json());
-    this.server.use(accessControl);
+    this.app.use(cors());
+    this.app.use(express.json());
+    this.app.use(accessControl);
   }
 
   private startRoutes() {
     Object.values(this.routes).forEach((router) => {
-      this.server.use(router);
+      this.app.use(router);
     });
-    this.server.use(ErrorHandler.errorHandler);
+    this.app.use(ErrorHandler.errorHandler);
   }
 
   public static getInstance(exp = express(), router = routes): AppBack {
@@ -42,8 +42,8 @@ export default class AppBack {
 
   public start(port: number) {
     this.startRoutes();
-    this.server.listen(port, () => {
-      console.log("Server is running on port " + port);
+    this.app.listen(port, () => {
+      console.log("server is running on port " + port);
       // sequelize.connectionManager.getConnection({ type: 'read' }).then(() => console.log('Database connected'));
     });
   }
