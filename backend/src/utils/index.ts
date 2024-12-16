@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 const JWT_SECRET = process.env.SECRET || "secret";
-const HASH_SALT = process.env.HASH_SALT || 10;
+const HASH_SALT = process.env.HASH_SALT ? parseInt(process.env.HASH_SALT) : 10;
 
 export abstract class ServiceHelpers {
   public static bcryptValidation(hash: string, password?: string) {
