@@ -8,7 +8,7 @@
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "predb:all": "rm -rf dist && tsc",
-    "db:all": "npm run db:migrate && npm run db:seed"
+    "db:all": "rm -rf ./db.sqlite && npm run db:migrate && npm run db:seed"
   },
   "author": "",
   "license": "ISC",

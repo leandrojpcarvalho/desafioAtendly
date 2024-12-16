@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npm run install:all",
     "install:all": "npm install --prefix frontend && npm install --prefix backend",
+    "predev": "npm run install:all && cd backend && npm run db:all",
+    "dev": "chmod +x script.sh && ./script.sh",
     "test": "mocha",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
