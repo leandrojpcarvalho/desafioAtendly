@@ -40,7 +40,6 @@ export default class MiddleWare {
 
   public static loginWithToken(): RequestHandler {
     return (req: Request, res: Response, next: NextFunction) => {
-      console.log(req.header("Authorization"));
       const { authorization } = req.headers;
       if (authorization && typeof authorization === "string") {
         const tokenDecoded = ServiceHelpers.decodeToken(authorization);

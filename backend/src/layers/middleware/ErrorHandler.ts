@@ -11,8 +11,6 @@ export default abstract class ErrorHandler {
       res.status(500).json({ error: err.message });
       return;
     }
-    res.status(500).json({ error: err });
-    return;
   }
 
   public static asyncErrorHandler(

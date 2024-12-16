@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install:all": "npm install --prefix frontend && npm install --prefix backend",
-    "test": "mocha",
+    "preinstall": "npm install --prefix frontend && npm install --prefix backend",
+    "test": "mocha --exit",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
     "coverage": "tsc && nyc mocha --exit"
@@ -31,6 +31,7 @@
     "@types/node": "^22.9.3",
     "@types/sinon": "^17.0.3",
     "@types/sinon-chai": "^4.0.0",
+    "@types/supertest": "^6.0.2",
     "chai": "4.4.1",
     "chai-as-promised": "^7.1.1",
     "chai-http": "4.4.0",
@@ -50,6 +51,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
+    "supertest": "^7.0.0",
     "vue": "^2.7.16"
   }
 }
