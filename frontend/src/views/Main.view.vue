@@ -1,26 +1,27 @@
-<script setup lang="ts">
+<script lang="ts">
 import { defineComponent } from 'vue';
-defineComponent({
+export default defineComponent({
   name: 'MainView',
-
 });
 </script>
 
 <template>
-  <div class="d-flex gap-3 align-items-center min">
-    <div class="">
-      <h1 class="brand"><span class="styled">A</span>tendly</h1>
-      <div class="cutter">
-        <div class="cover"></div>
+  <div class="container text-center d-flex flex-column align-items-center vh-100 justify-content-center">
+    <div class="d-flex gap-3 align-items-center min">
+      <div class="">
+        <h1 class="brand"><span class="styled">A</span>tendly</h1>
+        <div class="cutter">
+          <div class="cover"></div>
+        </div>
       </div>
+      <section class="shadow-sm p-3 glass">
+        <RouterView />
+      </section>
     </div>
-    <section class="shadow-sm p-3 glass">
-      <RouterView />
-    </section>
+    <footer>
+      <p class="mt-5 mb-3 text-muted">Atendly © 2024</p>
+    </footer>
   </div>
-  <footer>
-    <p class="mt-5 mb-3 text-muted">Atendly © 2024</p>
-  </footer>
 </template>
 
 <style scoped>
